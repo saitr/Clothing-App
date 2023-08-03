@@ -1,0 +1,112 @@
+{% extends 'layout.html' %}
+{% block content %}
+{%load static%}
+
+
+<!-- alert box to show the error  -->
+
+<div id="alert-box"></div>
+
+
+<!-- alert box ends  -->
+<!-- ***** Subscribe Area Starts ***** -->
+<div class="subscribe">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="section-heading">
+                    <h2>By Subscribing To Our Newsletter You Can Get 30% Off</h2>
+                    <span>Details to details is what makes Hexashop different from the other themes.</span>
+                </div>
+                <form id="subscribe" action="{% url 'subscribe' %}" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <fieldset>
+                                <input name="name" type="text" id="name" placeholder="Your Name" required="">
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-5">
+                            <fieldset>
+                                <input name="email" type="email" id="email" placeholder="Your Email Address" required="">
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-2">
+                            <fieldset>
+                                <button type="submit" id="form-submit" class="main-dark-button"><i class="fa fa-paper-plane"></i></button>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-6">
+                        <ul>
+                            <li>Store Location:<br><span>Sunny Isles Beach, FL 33160, United States</span></li>
+                            <li>Phone:<br><span>010-020-0340</span></li>
+                            <li>Office Location:<br><span>North Miami Beach</span></li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <ul>
+                            <li>Work Hours:<br><span>07:30 AM - 9:30 PM Daily</span></li>
+                            <li>Email:<br><span>info@company.com</span></li>
+                            <li>Social Media:<br><span><a href="#">Facebook</a>, <a href="#">Instagram</a>, <a href="#">Behance</a>, <a href="#">Linkedin</a></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ***** Subscribe Area Ends ***** -->
+
+
+
+<style>
+    /* CSS to center the alert text */
+    .alert {
+        text-align: center;
+    }
+</style>
+
+<script>
+    const form = document.getElementById('subscribe');
+    const alertBox = document.getElementById('alert-box');
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+        });
+
+        const data = await response.json();
+        displayAlert(data.message, data.success);
+    });
+
+    function displayAlert(message, isSuccess) {
+        const alertClass = isSuccess ? 'alert-success' : 'alert-danger';
+        const alertText = isSuccess ? 'Success!' : 'Error!';
+        const alertMessage = `<div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+                                 <strong>${alertText}</strong> ${message}
+                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                              </div>`;
+        alertBox.innerHTML = alertMessage;
+
+        // Add event listener to close the alert box when the close button is clicked
+        const closeButton = alertBox.querySelector('.btn-close');
+        closeButton.addEventListener('click', () => {
+            alertBox.innerHTML = ''; // Remove the alert box content when closed
+        });
+    }
+</script>
+
+{%endblock%}

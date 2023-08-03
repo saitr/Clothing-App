@@ -1,0 +1,77 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+
+
+<div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
+    <div class="wrapper wrapper--w960">
+        <div class="card card-2">
+            <div class="card-heading"></div>
+            <div class="card-body">
+                <h2 class="title text-center">Register</h2>
+                <form method="POST" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {% if form.username.errors %}
+                            <p style="color: red;">{{ form.username.errors }}</p>
+                        {% endif %}
+                        {{ form.username }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.password }}
+                    </div>
+                    <div class="form-group">
+                        {% if form.email.errors %}
+                            <p style="color: red;">{{ form.email.errors }}</p>
+                        {% endif %}
+                        {{ form.email }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.country_code }}
+                        {% if form.phone_number.errors %}
+                            <p style="color: red;">{{ form.phone_number.errors }}</p>
+                        {% endif %}
+                        {{ form.phone_number }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.address }}
+                    </div>
+                    <div class="p-t-30">
+                        <button class="btn btn--radius btn--green" type="submit">SignUp</button>
+                    </div>
+                </form>
+                <br>
+                <br>
+                <span class="signup-signin-text">Not a member yet?<a href="{% url 'signin' %}" style="text-decoration: none;">SignIn</a></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- ***** Preloader Start ***** -->
+<div id="preloader">
+    <div class="jumper">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<!-- ***** Preloader End ***** -->
+
+<script>
+    // Wait for the whole page to load
+    window.addEventListener('load', function() {
+        // Get the preloader div
+        const preloader = document.getElementById('preloader');
+
+        // Hide the preloader div
+        preloader.style.display = 'none';
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,92 @@
+<!-- item_detail.html -->
+
+{% extends 'layout.html' %}
+{% block content %}
+
+{% load static %}
+ <!-- ***** Main Banner Area Start ***** -->
+ <div class="page-heading" id="top">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="inner-content">
+                  <h2>Single Product Page</h2>
+                  
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- ***** Main Banner Area End ***** -->
+
+
+ <!-- ***** Product Area Starts ***** -->
+ <section class="section" id="product">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-8">
+          <div class="left-images">
+              <img src="{{ item.item_image.url }}" style="height: 43vh;" alt="">
+              
+          </div>
+      </div>
+      <div class="col-lg-4">
+          <div class="right-content">
+              <h4>{{ item.item_name }}</h4>
+              <span class="price">${{ item.item_price }}</span>
+              <ul class="stars">
+                  <li><i class="fa fa-star"></i></li>
+                  <li><i class="fa fa-star"></i></li>
+                  <li><i class="fa fa-star"></i></li>
+                  <li><i class="fa fa-star"></i></li>
+                  <li><i class="fa fa-star"></i></li>
+              </ul>
+              <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod kon tempor incididunt ut labore.</span>
+              <div class="quote">
+                  <i class="fa fa-quote-left"></i><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiuski smod.</p>
+              </div>
+              <form method="post" action="{% url 'add_to_cart' item.pk %}">
+                {% csrf_token %}
+              <div class="quantity-content">
+                <label for="selected_size">Select Size:</label>
+                <select name="selected_size" id="selected_size">
+                  {% for size in item.size.all %}
+                    <option value="{{ size.sizes }}">{{ size.sizes }}</option>
+                  {% endfor %}
+                </select>
+              
+            
+              <div class="total">
+                  <h4>Total: ${{item.item_price}}</h4>
+                  <div class="main-border-button"><button type="submit" class="btn btn-dark" >Add To Cart</button></div>
+                  
+              </div>
+            </form>
+          </div>
+      </div>
+      </div>
+  </div>
+</section>
+
+<!-- ***** Product Area Ends ***** -->
+
+{% include 'footer.html' %}
+
+  <!-- <h1>{{ item.item_name }}</h1>
+  <h1>{{request.user.username }}</h1>
+  <p>Price: ${{ item.item_price }}</p>
+  <form method="post" action="{% url 'add_to_cart' item.pk %}">
+    {% csrf_token %}
+    <label for="selected_size">Select Size:</label>
+    <select name="selected_size" id="selected_size">
+      {% for size in item.size.all %}
+        <option value="{{ size.sizes }}">{{ size.sizes }}</option>
+      {% endfor %}
+    </select>
+  <button type="submit" class="btn btn-dark">Add To Cart</button>
+
+  </form>
+  <img src="{{ item.item_image.url }}" alt="{{ item.item_name }} Image" width="200">
+  <p>Available: {% if item.is_available %}Yes{% else %}No{% endif %}</p> -->
+  
+{% endblock %}

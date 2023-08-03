@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+
+<h1 class="text-center" style="margin-top: 10%;margin-bottom: 3%;">Place your order.</h1>
+<div class="text-center">
+  {% if cart_items %}
+
+  <div class="d-flex justify-content-center">
+    <table class="table table-striped w-50">
+      <tr>
+        <th>Item Name</th>
+        <th>Item Quantity</th>
+        <th>Item Price</th>
+      </tr>
+
+      <!-- Table rows -->
+      {% for cart_item in cart_items %}
+      <tr>
+        <td>{{ cart_item.item.item_name }}</td>
+        <td>{{ cart_item.quantity }}</td>
+        <td>{{ cart_item.item.item_price }}</td>
+      </tr>
+      {% endfor %}
+
+      <!-- Total Price row -->
+      <tr>
+        <td colspan="2" class="text-right"> <b>Total Price:</b></td>
+      
+        <td><b>
+          ${{ total_cart_value }}
+        </b></td>
+      </tr>
+    </table>
+  </div>
+
+  {% else %}
+  <p>No items in the cart.</p>
+  {% endif %}
+</div>
+
+
+
+
+
+
+
+
+  
+  <form method="post" style="width: 50%;margin-left: 25%;border: inset;padding: 1%;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="text-center">
+    <input type="submit" class="btn btn-dark mt-2 w-25" value="Place Order">
+  </div>
+  </form>
+
+{% include 'footer.html' %}
+ 
+
+{% endblock %}

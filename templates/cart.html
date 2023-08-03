@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+{% load static %}
+ <!-- ***** Main Banner Area Start ***** -->
+ <div class="page-heading" id="top">
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-12">
+              <div class="inner-content">
+                  <h2>Welcome To The Cart Page</h2>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- ***** Main Banner Area End ***** -->
+
+
+ <!-- ***** Product Area Starts ***** -->
+{% if cart_items %}
+  {% for cart_item in cart_items %}
+    <section class="section" id="product">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="left-images">
+              <img src="{{ cart_item.item.item_image.url }}" style="height: 43vh;" alt="">
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="right-content">
+              <h4>{{ cart_item.item.item_name }}</h4>
+              <span class="price">${{ cart_item.item.item_price }}</span>
+              <ul class="stars">
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+                <li><i class="fa fa-star"></i></li>
+              </ul>
+              <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod kon tempor incididunt ut labore.</span>
+              <div class="quote">
+                <i class="fa fa-quote-left"></i><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiuski smod.</p>
+              </div>
+              <div class="quantity-content">
+                <form method="post" action="{% url 'update_quantity' cart_item_id=cart_item.pk %}">
+                  {% csrf_token %}
+                  <div class="d-flex align-items-center">
+                      <button type="submit" name="action" value="decrement" class="btn btn-dark">-</button>
+                      <h3 class="quantity mb-0 p-2">{{ cart_item.quantity }}</h3>
+                      <button type="submit" name="action" value="increment" class="btn btn-dark">+</button>
+                  </div>
+              </form>
+              
+              </div>
+              <div class="total">
+                <h4>Price: ${{ cart_item.total_price }}</h4>
+                <div class="main-border-button"><a href="{% url 'remove_from_cart' cart_item_id=cart_item.pk %}">Remove</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+  {% endfor %}
+  
+  <div class="text-right" style="margin-right: 30%;padding: 2%;">
+    <h4 style="font-weight: 700;color: grey; font-size: 30px;">Total Price:${{ total_cart_value }}</h4>
+  </div>
+
+  <div class="text-center m-3">
+
+  <a href="{% url 'place_order' %}"><button class="btn btn-dark">Go To Checkout</button></a>
+
+  </div>
+{% else %}
+  <h1 class="display-2 text-center m-3">Your Cart is empty!!! &#128531;</h1>
+{% endif %}
+{% include 'footer.html' %}
+
+{% endblock %}

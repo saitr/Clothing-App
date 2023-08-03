@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+
+
+    <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
+        <div class="wrapper wrapper--w960">
+            <div class="card card-2">
+                <div class="card-heading"></div>
+                <div class="card-body">
+                    <h2 class="title text-center">Get In</h2>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <form method="POST" action="{% url 'signup' %}">
+                            {% csrf_token %}
+                            {{ form.username }}
+                            {{ form.password }}
+                            <div class="p-t-30">
+                             
+                            <button class="btn btn--radius btn--green" type="submit">SignIn</button>
+
+                            </div>
+                        </form>
+                    </form>
+                    
+                    <span class="signup-signin-text">Not a member yet?<a href="{% url 'signup' %}" style="text-decoration: none;">SignUp</a></span>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+<!-- ***** Preloader Start ***** -->
+<div id="preloader">
+    <div class="jumper">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<!-- ***** Preloader End ***** -->
+
+<script>
+    // Wait for the whole page to load
+    window.addEventListener('load', function() {
+        // Get the preloader div
+        const preloader = document.getElementById('preloader');
+
+        // Hide the preloader div
+        preloader.style.display = 'none';
+    });
+</script>
+
+    {% endblock %}
