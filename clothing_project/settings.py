@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-_@0bi3!d6o=ulf*b@@7*sbef-!+%phqc-af4^c001)m%2%fz7c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-CORS_ALLOWED_ORIGINS = ['*']
+CORS_ALLOW_ALL_ORIGINS = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -90,24 +90,24 @@ WSGI_APPLICATION = 'clothing_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', #name of the type of databse in this case it  is mysql
-        'NAME': 'clothing', #Name of the database
-        'USER': 'root', #Name of the mysql user
-        'PASSWORD': 'Sai481309@', #Password of the mysql
-        'HOST':'localhost', # host of the sql 
-        'PORT':'3306', # Running Port
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql', #name of the type of databse in this case it  is mysql
+#         'NAME': 'clothing', #Name of the database
+#         'USER': 'root', #Name of the mysql user
+#         'PASSWORD': 'Sai481309@', #Password of the mysql
+#         'HOST':'localhost', # host of the sql 
+#         'PORT':'3306', # Running Port
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
