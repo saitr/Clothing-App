@@ -4,6 +4,7 @@ from django.contrib.auth.base_user import BaseUserManager
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
+    
     def create_user(self,email,password=None,**extra_fields):
 
         if not email:
@@ -28,3 +29,4 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True.')
 
         return self.create_user(email, password, **extra_fields)
+    

@@ -35,7 +35,7 @@ class SignUpView(generics.CreateAPIView):
 
 class VerifyOtpView(generics.GenericAPIView):
 
-    permission_classes = [AllowAny]
+    # permission_classes = [AllowAny]
     @swagger_auto_schema(request_body=openapi.Schema(
         type=openapi.TYPE_OBJECT,
         properties={
@@ -97,7 +97,7 @@ class VerifyOtpView(generics.GenericAPIView):
 #             return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 class SigninView(generics.GenericAPIView):
-    permission_classes = [AllowAny]
+    # permission_classes = [AllowAny]
     serializer_class = SignInSerializer
     @swagger_auto_schema(tags=['SignIn'])
 
@@ -124,7 +124,7 @@ class SigninView(generics.GenericAPIView):
                     
 
 class LogoutView(generics.GenericAPIView):
-    authentication_classes = [JWTAuthentication]
+    # authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
     
     @swagger_auto_schema(tags=['Logout'])

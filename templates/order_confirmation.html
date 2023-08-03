@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <h1 class="text-center display-1 text-decoration-underline" style="margin-top: 10%;">Order Confirmation</h1>
+  <p class="text-center display-3 m-3">Your order has been placed successfully. Thank you for your purchase!!!! &#x1F60A; &#x1F60A; &#x1F60A;</p>
+
+
+  <div class="text-center">
+    <a href="{%url 'item_list' %}"><button class="btn btn-dark">Go To Home</button></a>
+  </div>
+  <!-- You can display order details here if you want -->
+{% endblock %}

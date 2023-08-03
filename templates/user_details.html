@@ -1,0 +1,88 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+{% include 'navbar.html' %}
+
+<!-- {% for user in users%}
+<img src="{{user.display_picture.url}}" alt="">
+
+
+{% endfor %} -->
+
+<div class="page-content page-container" id="page-content">
+  <div class="padding">
+      <div class="row container d-flex justify-content-center">
+<div class="col-xl-6 col-md-12" style="width:100%;margin-left: 35%;">
+                                              <div class="card user-card-full">
+                                                  <div class="row m-l-0 m-r-0">
+                                                      <div class="col-sm-4 bg-c-lite-green user-profile">
+                                                          <div class="card-block text-center text-white">
+                                                            {% if request.user.display_picture %}
+                                                              <div class="m-b-25">
+                                                                  <img src="{{ request.user.display_picture.url }}" class="img-radius" alt="User-Profile-Image">
+                                                              </div>
+                                                              {% else %}
+                                                              <img src="../static/img/user.png" alt="{{ request.user.username }}" class="img-radius" alt="User-Profile-Image" width="200px">
+                                                              {% endif %}
+
+
+                                                              <h6 class="f-w-600 fs-3">{{ request.user.username }}</h6>
+                                                              
+                                                              <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+                                                          </div>
+                                                      </div>
+                                                      <div class="col-sm-8">
+                                                          <div class="card-block">
+                                                              <h6 class="m-b-20 p-b-5 b-b-default f-w-600 fs-2">User Information</h6>
+                                                              <div class="row">
+                                                                  <form method="POST" enctype="multipart/form-data">
+                                                                    {% csrf_token %}
+                                                                    <!-- Username  -->
+                                                                    <div class="col-sm-6">
+                                                                      <p class="m-b-10 f-w-600 fs-5">Username</p>
+                                                                      {{ form.username }}
+                                                                  </div>
+
+                                                                  <!-- email  -->
+                                                                  <div class="col-sm-6">
+                                                                    <p class="m-b-10 f-w-600 fs-5">Email</p>
+                                                                    {{ form.email }}
+                                                                </div>
+                                                                    <!-- email end  -->
+
+                                                                    <!-- phone number  -->
+                                                                    <div class="col-sm-6">
+                                                                      <p class="m-b-10 f-w-600 fs-5">Phone Number</p>
+                                                                      {{ form.phone_number }}
+                                                                  </div>
+
+                                                                    <!-- phone number end  -->
+                                                                    <!-- address  -->
+                                                                    <div class="col-sm-6">
+                                                                      <p class="m-b-10 f-w-600 fs-5">Address</p>
+                                                                      {{ form.address }}
+                                                                  </div>
+                                                                    <!-- address end  -->
+                                                                    <!-- choose dp  -->
+                                                                    <label for="{{ form.display_picture.id_for_label }}" {% if form.display_picture.required %}required{% endif %}>Change Display Picture:</label>
+                                                                    {{ form.display_picture }}
+                                                                    <!-- choose dp end  -->
+                                                                     
+                                                                    <!-- save button  -->
+                                                                    <button class="btn btn--radius btn--green" type="submit">Save</button>
+                                                                    <!-- save button end  -->
+                                                                  </form>
+                                                              </div>
+                                                              
+                                                              
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                           </div>
+                                              </div>
+                                          </div>
+
+
+{% endblock %}
