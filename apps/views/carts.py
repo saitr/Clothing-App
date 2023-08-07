@@ -5,7 +5,7 @@ from django.contrib import messages
 
 
 
-@login_required
+@login_required(login_url='signin')
 def add_to_cart(request, item_id):
     user_cart, created = Cart.objects.get_or_create(user=request.user)
     item = Items.objects.get(pk=item_id)
@@ -55,7 +55,7 @@ def add_to_cart(request, item_id):
 
 from decimal import Decimal
 
-@login_required
+@login_required(login_url='signin')
 def view_cart(request):
     if request.user:
         user_cart, created = Cart.objects.get_or_create(user=request.user)
@@ -72,7 +72,7 @@ def view_cart(request):
         # Handle case for non-authenticated users (e.g., redirect to login page)
         pass
 
-@login_required
+@login_required(login_url='signin')
 def remove_from_cart(request, cart_item_id):
     if request.user:
         user_cart, created = Cart.objects.get_or_create(user=request.user)
@@ -124,7 +124,7 @@ def remove_from_cart(request, cart_item_id):
 #     return redirect('cart')
 
 
-@login_required
+@login_required(login_url='signin')
 def update_quantity(request, cart_item_id):
 
   cart_item = CartItem.objects.get(pk=cart_item_id)

@@ -55,19 +55,19 @@ def about(request):
 ######################### Wishlist Functionality #######################
 
 
-@login_required
+@login_required(login_url='signin')
 def add_to_wishlist(request, item_id):
     item = Items.objects.get(pk=item_id)
     Wishlist.objects.get_or_create(user=request.user, item=item)
     return redirect('item_list')
 
-@login_required
+@login_required(login_url='signin')
 def view_wishlist(request):
     wishlist_items = Wishlist.objects.filter(user=request.user)
     return render(request, 'wishlist.html', {'wishlist_items': wishlist_items})
 
 
-@login_required
+@login_required(login_url='signin')
 def remove_from_wishlist(request, wishlist_item_id):
     try:
         wishlist_item = Wishlist.objects.get(pk=wishlist_item_id, user=request.user)
