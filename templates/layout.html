@@ -65,6 +65,8 @@
                                     <li><a href="{% url 'contact' %}">Contact Us</a></li>
                                     <li><a href="{% url 'cart' %}">Cart</a></li>
                                     <li><a href="{% url 'view_wishlist' %}">Wishlist</a></li>
+                                    <li><a href="{%url 'order_list' %}">Orders</a></li>
+                                    <li><a href="{%url 'user_details'%}">My Account</a></li>
                                 </ul>
                             </li>
                             {%if request.path == '/' %}

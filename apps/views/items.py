@@ -11,6 +11,7 @@ def item_list(request):
 
 def item_detail(request, item_id):
     item = get_object_or_404(Items, pk=item_id)
+    
     print('this is item_detail',item.id)
     return render(request, 'item_detail.html', {'item': item})
 

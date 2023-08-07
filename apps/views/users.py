@@ -224,19 +224,19 @@ def signin(request):
                     user = User.objects.get(phone_number=username)
                 except User.DoesNotExist:
                     form.add_error('username_or_phone', 'Incorrect username or password')
-                    return render(request, 'signin_sai.html', {'form': form})
+                    return render(request, 'signin.html', {'form': form})
             else:
                 # If it's not a valid phone number, authenticate using username
                 try:
                     user = User.objects.get(username=username)
                 except User.DoesNotExist:
                     form.add_error('username', 'Incorrect username or password')
-                    return render(request, 'signin_sai.html', {'form': form})
+                    return render(request, 'signin.html', {'form': form})
 
             # Use check_password to validate the password
             if not check_password(password, user.password):
                 form.add_error('username', 'Incorrect username or password')
-                return render(request, 'signin_sai.html', {'form': form})
+                return render(request, 'signin.html', {'form': form})
 
             login(request, user)
 
@@ -283,7 +283,7 @@ def signin(request):
 #     return render(request, 'user_details.html',{'form':form})
 
 
-@login_required
+@login_required(login_url='signin')
 def user_details(request):
     user = request.user
     users = User.objects.all()
@@ -306,7 +306,7 @@ def user_details(request):
                 user.display_picture = display_picture
                 
             request.user.save()
-            return redirect('home')
+            return redirect('item_list')
     else:
         initial_data = {
             'username': user.username,
@@ -320,4 +320,112 @@ def user_details(request):
 
 
 
+
+
+
+# from django.core.mail import send_mail
+# from django.contrib import messages
+
+# def forgot_password(request):
+#     if request.method == 'POST':
+#         email = request.POST.get('email', '')
+
+#         try:
+#             user = User.objects.get(email=email)
+#         except User.DoesNotExist:
+#             user = None
+
+#         if user:
+#             # Encode the email as Base64
+#             email_b64 = urlsafe_base64_encode(force_bytes(email))
+
+#             # Create the reset URL
+#             reset_url = f"{request.build_absolute_uri('/reset_password/')}{email_b64}/"
+
+#             # Compose the email content
+#             subject = 'Password Reset'
+#             message = f'Click the following link to reset your password: {reset_url}'
+#             from_email = settings.DEFAULT_FROM_EMAIL
+#             recipient_list = [email]
+
+#             # Send the email
+#             send_mail(subject, message, from_email, recipient_list)
+
+#             messages.success(request, 'A reset link has been sent to your email.')
+#             return redirect('forgot_password')
+
+#         else:
+#             messages.error(request, 'No user found with this email.')
+#             return redirect('forgot_password')
+
+#     return render(request, 'forgot_password.html')
+
+from django.core.mail import send_mail
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.conf import settings
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+def forgot_password(request):
+    if request.method == 'POST':
+        email = request.POST.get('email', '')
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            user = None
+
+        if user:
+            # Encode the email as Base64
+            email_b64 = urlsafe_base64_encode(force_bytes(email))
+
+            # Create the reset URL using the DOMAIN_NAME from settings
+            reset_url = f"{settings.DOMAIN_NAME}reset_password/{email_b64}/"
+
+            # Compose the email content
+            subject = 'Password Reset'
+            message = f'Click the following link to reset your password: {reset_url}'
+
+            # Send the email
+            send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [email])
+
+            messages.success(request, 'A reset link has been sent to your email.')
+            return redirect('forgot_password')
+
+        else:
+            messages.error(request, 'No user found with this email.')
+            return redirect('forgot_password')
+
+    return render(request, 'forgot_password.html')
+
+
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str  # Use force_str instead of force_text
+
+def reset_password(request, email_b64):
+    email = force_str(urlsafe_base64_decode(email_b64))  # Use force_str instead of force_text
+
+    try:
+        user = User.objects.get(email=email)
+    except User.DoesNotExist:
+        user = None
+
+    if user:
+        if request.method == 'POST':
+            new_password = request.POST.get('new_password')
+            user.set_password(new_password)
+            user.save()
+
+            messages.success(request, 'Password reset successfully. You can now login with the new password.')
+            return redirect('signin')
+
+        return render(request, 'reset_password.html', {'email_b64': email_b64})
+    else:
+        messages.error(request, 'Invalid reset link.')
+        return redirect('signin') 
 

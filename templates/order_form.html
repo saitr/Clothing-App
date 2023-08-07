@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<h1 class="text-center" style="margin-top: 10%;margin-bottom: 3%;">Place your order.</h1>
+<h1 class="text-center text-decoration-underline" style="margin-top: 10%;margin-bottom: 3%;">Place your order.</h1>
 <div class="text-center">
   {% if cart_items %}
 
@@ -21,6 +21,7 @@
         <td>{{ cart_item.item.item_name }}</td>
         <td>{{ cart_item.quantity }}</td>
         <td>{{ cart_item.item.item_price }}</td>
+        
       </tr>
       {% endfor %}
 
@@ -36,7 +37,7 @@
   </div>
 
   {% else %}
-  <p>No items in the cart.</p>
+  <h1 class="display-2 m-4">No items in the cart...&#128531;&#128531;&#128531;</h1>
   {% endif %}
 </div>
 

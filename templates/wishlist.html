@@ -95,9 +95,19 @@
                   
                 
                   <div class="total">
-                    <h4>Price: ${{wishlist_item.item.item_price}}</h4>
+
+                    <h4>Price: ${{wishlist_item.item.item_price}}</h4> 
+                    {% if wishlist_item.item.inventory > 0 %}
+
                       <div class="main-border-button"><button type="submit" class="btn btn-dark" >Add To Cart</button></div>
-                      
+
+                    {%endif%}
+                    {% if wishlist_item.item.inventory == 0 %}
+                    <br>
+                    <br>
+                    <h3 class="text-danger fw-bolder">We ran out of stock sorry for the inconvince</h3>
+
+                    {%endif%}
                   </div>
                 </form>
 
