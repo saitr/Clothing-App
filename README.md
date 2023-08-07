@@ -1,6 +1,11 @@
 # Hexashop
 The Clothing App is a user-friendly and stylish online platform that offers a wide range of trendy clothing items for fashion-conscious shoppers. Whether you're looking for casual wear, formal attire, or accessories to complete your look, our app has you covered.
 
+## Screenshot
+
+![Screenshot from 2023-08-07 17-40-11](https://github.com/saitr/Clothing-App/assets/64057564/529d1bf3-882e-4be5-9352-0afef49eef5e)
+
+
 ## Features
 
 1. **Extensive Collection:** Browse through a diverse collection of clothing items for men, women, and kids, carefully curated to suit various tastes and preferences.
