@@ -11,7 +11,7 @@ from decimal import Decimal
 
 
 
-@login_required
+@login_required(login_url='signin')
 def place_order(request):
 
     user_cart = Cart.objects.filter(user=request.user).first()
@@ -113,7 +113,7 @@ def place_order(request):
 
 #     return render(request, 'order_form.html', {'form': form, 'cart_items': cart_items,'total_cart_value': total_cart_value})
 
-@login_required
+@login_required(login_url='signin')
 def order_confirmation(request):
     # You can implement a confirmation page here if you want to show order details
     return render(request, 'order_confirmation.html')  
@@ -124,7 +124,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
 
-@login_required
+@login_required(login_url='signin')
 def order_list(request):
     if request.user.is_superuser:
         orders = Order.objects.all()
@@ -133,7 +133,7 @@ def order_list(request):
     context = {'orders': orders}
     return render(request, 'order_list.html', context)
 
-@login_required
+@login_required(login_url='signin')
 def update_tracking(request, order_id):
     if not request.user.is_superuser:
         return redirect('order_list')
