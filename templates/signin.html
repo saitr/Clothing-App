@@ -1,34 +1,51 @@
+
+
+
+
 {% extends 'layout.html' %}
 {% block content %}
-
-
-
-    <div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
-        <div class="wrapper wrapper--w960">
-            <div class="card card-2">
-                <div class="card-heading"></div>
-                <div class="card-body">
-                    <h2 class="title text-center">Get In</h2>
-                    <form method="POST">
-                        {% csrf_token %}
-                        <form method="POST" action="{% url 'signup' %}">
-                            {% csrf_token %}
-                            {{ form.username }}
-                            {{ form.password }}
-                            <div class="p-t-30">
-                             
-                            <button class="btn btn--radius btn--green" type="submit">SignIn</button>
-
-                            </div>
-                        </form>
-                    </form>
+<div class="page-wrapper bg-red p-t-180 p-b-100 font-robo">
+    <div class="wrapper wrapper--w960">
+        <div class="card card-2">
+            <div class="card-heading"></div>
+            <div class="card-body">
+                <h2 class="title text-center">Get In</h2>
+                <form method="POST">
+                    {% csrf_token %}
                     
-                    <span class="signup-signin-text">Not a member yet?<a href="{% url 'signup' %}" style="text-decoration: none;">SignUp</a></span>
-                </div>
+                    <div class="form-group">
+                        <div class="error-message" style="color:red">
+                            {{ form.username.errors }}
+                        </div>
+                        {{ form.username }}
+                        
+                    </div>
+                    <div class="form-group">
+                        <div class="error-message" style="color: red;">
+                            {{ form.password.errors }}
+                        </div>
+                        {{ form.password }}
+                        
+                    </div>
+                    <div class="p-t-30">
+                        <button class="btn btn--radius btn--green" type="submit">Sign In</button>
+                    </div>
+                </form>
+                
+                <span class="signup-signin-text">Not a member yet? <a href="{% url 'signup' %}" style="text-decoration: none;">SignUp</a></span>
+                <span class="signup-signin-text"><a href="{% url 'forgot_password' %}" style="text-decoration: none;">Forgot Password</a></span>
+
             </div>
-            
         </div>
     </div>
+</div>
+
+
+
+
+
+
+
 <!-- ***** Preloader Start ***** -->
 <div id="preloader">
     <div class="jumper">

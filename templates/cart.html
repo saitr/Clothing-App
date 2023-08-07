@@ -51,6 +51,13 @@
                       <h3 class="quantity mb-0 p-2">{{ cart_item.quantity }}</h3>
                       <button type="submit" name="action" value="increment" class="btn btn-dark">+</button>
                   </div>
+                  <label class="mt-3" for="selected_size"><b>Change Size?:</b></label>
+                  <select name="selected_size" id="selected_size">
+                    {% for size in cart_item.item.size.all %}
+                      <option value="{{ size.sizes }}" {% if cart_item.size == size %}selected{% endif %}>{{ size.sizes }}</option>
+                    {% endfor %}
+                  </select> <br>
+                  <button class='btn btn-dark'type="submit">Save</button>
               </form>
               
               </div>
@@ -70,14 +77,15 @@
     <h4 style="font-weight: 700;color: grey; font-size: 30px;">Total Price:${{ total_cart_value }}</h4>
   </div>
 
-  <div class="text-center m-3">
-
-  <a href="{% url 'place_order' %}"><button class="btn btn-dark">Go To Checkout</button></a>
-
+  <div class="text-center">
+    <a href="{%url 'place_order' %}"><button class="btn btn-dark">Go To Checkout</button></a>
   </div>
+  
 {% else %}
   <h1 class="display-2 text-center m-3">Your Cart is empty!!! &#128531;</h1>
 {% endif %}
 {% include 'footer.html' %}
 
 {% endblock %}
+
+

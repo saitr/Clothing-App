@@ -89,6 +89,8 @@ class Items(models.Model):
     item_image = CloudinaryField("Item Image",blank=False,null=False)
     is_available = models.BooleanField(default=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    inventory = models.IntegerField(default=0)
+
     def __str__(self):
         return self.item_name
     
@@ -108,6 +110,7 @@ class Cart(models.Model):
 class CartItem(models.Model):
     class Meta:
         db_table = 'Cart_Items'
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     item = models.ForeignKey('Items', on_delete=models.CASCADE)
     size = models.ForeignKey('Size', on_delete=models.CASCADE)
@@ -129,6 +132,11 @@ class Order(models.Model):
         ("UPI", "UPI"),
         ("CARD", "CARD"),
     )
+    TRACKING = (
+        ('SHIPPED','shipped'),
+        ('ON THE WAY','on the way'),
+        ('DELIVERED','delivered')
+    )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
@@ -136,7 +144,7 @@ class Order(models.Model):
     zip_code = models.CharField(max_length=10)
     place = models.CharField(max_length=100)
     payment_method = models.CharField(max_length=20, choices=PAYMENT_CHOICES)
-
+    tracking = models.CharField(max_length=20,choices=TRACKING,blank=True,null=True)
     def __str__(self):
         return f"Order #{self.pk} - {self.user.username}"
 

@@ -33,10 +33,15 @@ DEBUG = True
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+CSRF_TRUSTED_ORIGINS = ['https://clothing-app.timmadollarbird.repl.co']
+
+CORS_ORIGIN_ALLOW_ALL=True
+
 ALLOWED_HOSTS = ['*']
 
 
 # Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -262,3 +267,4 @@ cloudinary.config(
 )
 
 
+DOMAIN_NAME = 'https://clothing-app.timmadollarbird.repl.co/'

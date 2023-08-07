@@ -69,6 +69,15 @@ class SignInForm(forms.Form):
         fields = ('username', 'password')
 
 
+class PasswordResetForm(forms.Form):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'input--style-2', 'placeholder': 'Email'}))
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        # Add any additional email validation here if needed
+        return email
+
+
 
 
 ################## changing the user_details form #####################
@@ -81,6 +90,7 @@ class ChangeUserDetails(forms.Form):
     # phone_number = forms.IntegerField(label="Phone Number:")
     phone_number= forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'input--style-2', 'placeholder': 'Phone Number'}))
     # address = forms.CharField(max_length=100,label = 'Address:')
+    address= forms.CharField(widget=forms.TextInput(attrs={'class': 'input--style-2', 'placeholder': 'Address'}))
     display_picture = forms.FileField(label='Change Display Picture',required=False)
 
 

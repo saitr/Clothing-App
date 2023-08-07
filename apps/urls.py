@@ -15,7 +15,9 @@ urlpatterns = [
     path('logout/',logout_user,name='logout'),
     path('signin/',signin,name='signin'),
     path('user_details/',user_details,name='user_details'),
-
+    # Add the following URL patterns
+    path('forgot_password/', forgot_password, name='forgot_password'),
+    path('reset_password/<str:email_b64>/', reset_password, name='reset_password'),
     # item Urls
     path('', item_list, name='item_list'),
     path('item/<int:item_id>/', item_detail, name='item_detail'),
@@ -42,6 +44,8 @@ urlpatterns = [
 
     path('place_order/', place_order, name='place_order'),
     path('order_confirmation/', order_confirmation, name='order_confirmation'),
+    path('orders/', order_list, name='order_list'),
+    path('orders/<int:order_id>/update_tracking/', update_tracking, name='update_tracking'),
 
     # rest api endpoints 
     path('rest_signup/',SignUpView.as_view(), name='rest_signup'),

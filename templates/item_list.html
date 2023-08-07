@@ -144,7 +144,9 @@
                 <div class="hover-content">
                   <ul>
                     
+                    {% if item.is_available %}
                     <li><a href="{% url 'item_detail' item_id=item.pk %}"><i class="fa fa-eye"></i></a></li>
+                  {% endif %}
                     <li class="wishlist_link" onclick="wishlistalertfun()"><a href="{% url 'add_to_wishlist' item_id=item.pk %}"><i class="fa fa-star"></i></a></li>
                     
                   </ul>
